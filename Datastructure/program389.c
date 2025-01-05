@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
 typedef struct node{
 
     int data;
@@ -84,9 +85,33 @@ void Postorder(PNODE head)
      printf("%d\n",head->data);
     }
 }
+bool search(PNODE head,int no)
+{
+    bool bflag=false;
+    while(head!=NULL)
+    {
+
+    if(no==head->data)
+    {
+        bflag=true;
+        break;
+    }
+    else if(no>head->data)
+    {
+        head=head->rchild;
+    }
+    else if(no<head->data)
+    {
+        head=head->lchild;
+    }
+    }
+    return bflag;
+    
+}
 int main()
 {
-     PNODE first=NULL;
+    PNODE first=NULL;
+    bool bRet=false;
     Insert(&first,51);
      Insert(&first,21);
       Insert(&first,101);
@@ -97,5 +122,14 @@ int main()
        Preorder(first);
        printf("postorder traversal\n");
       Postorder(first);
+      bRet=search(first,121);
+      if(bRet==true)
+      {
+        printf("element is present in BST\n");
+
+      }
+      else{
+        printf("element is not present  in BST\n");
+      }
     return 0;
 }
